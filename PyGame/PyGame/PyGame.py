@@ -96,10 +96,21 @@ def principal():                          #my principal function main()
 
         clouds(x_cloud,y_cloud, espace)
 
-        x_cloud -= cloud_speed
+        x_cloud -= cloud_speed              #position of the cloud at each loop/frame
 
         if y >surfaceH -40 or y < -10 :     #when you touch the border of the windows
             gameOver()
+
+                                         #define when you touch the ballon, you can change the difficulty here
+        if x + ballonW > x_cloud +40:
+            if y < y_cloud + cloudH -50:
+                if x - ballonW < x_cloud + cloudW -20 :
+                    gameOver()
+
+        if x +ballonW > x_cloud +40:
+            if y + ballonH > y_cloud + cloudH + espace + 50:
+                if x + ballonW < x_cloud +cloudW -20 :
+                    gameOver()
 
         if x_cloud < (-1*cloudW) :
             x_cloud = surfaceW
@@ -113,3 +124,6 @@ principal()
     #os._exit()
 pygame.quit()
     #print(quit)
+
+#Code from alexandre ghelli
+#https://www.youtube.com/channel/UCSXLZu6tCzXlSARAJ9utgow/videos
