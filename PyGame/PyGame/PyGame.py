@@ -75,7 +75,7 @@ def principal():                          #my principal function main()
     x_cloud = surfaceW
     y_cloud = randint(-300,20)                #random value
     espace = ballonH*3                        #height of the space betwwen the clouds
-    cloud_speed = 6
+    cloud_speed = 2
 
     game_over = False                        #create a variable to now if the game need to stop
     while not game_over :
@@ -100,6 +100,10 @@ def principal():                          #my principal function main()
 
         if y >surfaceH -40 or y < -10 :     #when you touch the border of the windows
             gameOver()
+
+        if x_cloud < (-1*cloudW) :
+            x_cloud = surfaceW
+            y_cloud = randint(-300,20)
 
         pygame.display.update()
 
