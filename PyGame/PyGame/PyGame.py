@@ -76,7 +76,8 @@ def principal():                          #my principal function main()
     x = 150
     y = 200
     y_mouvement = 0
-    
+    ballon_speed = 1
+
     x_cloud = surfaceW
     y_cloud = randint(-300,20)                #random value
     espace = ballonH*3                        #height of the space betwwen the clouds
@@ -92,9 +93,9 @@ def principal():                          #my principal function main()
                                                 #detect if you press an input
             if event.type == pygame.KEYDOWN :
                 if event.key == pygame.K_UP :
-                     y_mouvement = -1
+                     y_mouvement = - ballon_speed
             if event.type == pygame.KEYUP :
-                y_mouvement = 1
+                y_mouvement = ballon_speed
 
         y+= y_mouvement
 
@@ -110,15 +111,18 @@ def principal():                          #my principal function main()
         if y >surfaceH -40 or y < -10 :     #when you touch the border of the windows
             gameOver()
 
-                                         #upper the difficulty in function of your score
+                                         #increase the difficulty in function of your score
         if 3 <= score_actuel < 5 :
-            cloud_speed = 7
+            cloud_speed = 5
+            ballon_speed = 2
             espace = ballonH *2.8
         if 5 <= score_actuel < 7 :
-            cloud_speed = 8
+            cloud_speed = 7
+            ballon_speed = 4
             espace = ballonH *2.7
         if 7 <= score_actuel < 10 :
             cloud_speed = 9
+            ballon_speed = 6
             espace = ballonH *2.5
 
                                          #define when you touch the cloud with the ballon, you can change the difficulty here
@@ -137,9 +141,14 @@ def principal():                          #my principal function main()
             x_cloud = surfaceW
             y_cloud = randint(-300,20)
 
+        print(x_cloud)
+        print(cloudW)
+        print( cloud_speed)
+        print(x)
 
-        if x_cloud < (x - cloudW) < x_cloud + cloud_speed:          #select just one frame to incremente the score one time by cloud
+        if x_cloud - 1 < (x - cloudW) < x_cloud + cloud_speed:          #select just one frame to incremente the score one time by cloud
             score_actuel +=1
+
 
         pygame.display.update()
        
