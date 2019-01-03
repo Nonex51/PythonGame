@@ -91,8 +91,9 @@ def messageScreen (text):
     principal()
 
 def gameOver(score_actuel):
-    """
-    a = list(str(score_actuel))     #create a list with a char
+    #"""
+    a = str(score_actuel)     #create a list with a char
+
     Donnees = "/Users/Guillaume/Documents/PythonGame/PyGame/Donnees.sq3"
     conn =sqlite3.connect(Donnees)
     cur = conn.cursor()
@@ -104,11 +105,11 @@ def gameOver(score_actuel):
         hscore += dataliste[i]
 
     if (int(hscore[-1]) < score_actuel):
-        cur.execute("insert into membres(score) values (?)", a)
+        cur.execute("insert into membres(score) values (?)", (a,))
         conn.commit()
         cur.close()
         conn.close()
-    """
+    #"""
     messageScreen("Boom")                       #display an object message
 
 
@@ -120,12 +121,10 @@ def principal():                          #my principal function main()
     y = 200
     y_mouvement = 0
     ballon_speed = 1
-
     x_cloud = surfaceW
     y_cloud = randint(-300,20)                #random value
     espace = ballonH*3                        #height of the space between the clouds
     cloud_speed = 2
-
     score_actuel = 0
 
     game_over = False                        #create a variable to now if the game need to stop
@@ -133,7 +132,7 @@ def principal():                          #my principal function main()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 game_over = True
-                                                #detect if you press an input
+                                               #detect if you press an input
             if event.type == pygame.KEYDOWN :
                 if event.key == pygame.K_UP :
                 #if event.key == pygame.K_SPACE :
@@ -146,9 +145,7 @@ def principal():                          #my principal function main()
 
         surface.fill(blue)
         ballon(x,y,img)
-
         clouds(x_cloud,y_cloud, espace)
-
         score(score_actuel)
 
         cur.execute("select * from membres")    #take all in the data list and put the result inside the cursor (cur)
@@ -162,8 +159,6 @@ def principal():                          #my principal function main()
        # print(hscore)
 
         Hscore(hscore[-1])
-
-
         x_cloud -= cloud_speed              #position of the cloud at each loop/frame
 
         if y >surfaceH -40 or y < -10 :     #when you touch the border of the windows
@@ -174,10 +169,7 @@ def principal():                          #my principal function main()
             cloud_speed = 2 + 0.5  * score_actuel
             ballon_speed = 2 + 0.1 * score_actuel
             espace = ballonH * 2.8 - 0.1*score_actuel
-       
-
-       
-  
+   
                                          #define when you touch the cloud with the ballon, you can change the difficulty here
         if x + ballonW > x_cloud +40:
             if y < y_cloud + cloudH -80:               #Space tolerate inside the cloud up and down
@@ -202,16 +194,16 @@ def principal():                          #my principal function main()
         if x_cloud - 1 < (x - cloudW) < x_cloud + cloud_speed:          #select just one frame to incremente the score one time by cloud
             score_actuel +=1
 
-        a = list(str(score_actuel)) 
-        print(a)
+       # a = list(str(score_actuel)) 
+       # print(a)
 
         pygame.display.update()
-       
-    
+          
 principal()
-    #os._exit()
 pygame.quit()
     #print(quit)
+    #os._exit()
 
-#Code from alexandre ghelli
+
+#Code from alexandre ghelli to learn Python for RSG
 #https://www.youtube.com/channel/UCSXLZu6tCzXlSARAJ9utgow/videos
