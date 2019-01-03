@@ -22,6 +22,11 @@ img = pygame.image.load('Ballon01.png')
 img_cloud_1 =pygame.image.load('NuageHaut.png')
 img_cloud_2 =pygame.image.load('NuageBas.png')
 
+def score(compte):
+    police = pygame.font.Font('BradBunR.ttf',16)
+    text = police.render("Score: " + str(compte), True, white)
+    surface.blit(text, [10,0])                                  #position of score
+
 def clouds(x_cloud, y_cloud, espace):
     surface.blit(img_cloud_1,(x_cloud,y_cloud))
     surface.blit(img_cloud_2,(x_cloud,y_cloud + cloudW + espace))
@@ -77,6 +82,8 @@ def principal():                          #my principal function main()
     espace = ballonH*3                        #height of the space betwwen the clouds
     cloud_speed = 2
 
+    score_actuel = 0
+
     game_over = False                        #create a variable to now if the game need to stop
     while not game_over :
         for event in pygame.event.get():
@@ -96,12 +103,25 @@ def principal():                          #my principal function main()
 
         clouds(x_cloud,y_cloud, espace)
 
+        score(score_actuel)
+
         x_cloud -= cloud_speed              #position of the cloud at each loop/frame
 
         if y >surfaceH -40 or y < -10 :     #when you touch the border of the windows
             gameOver()
 
-                                         #define when you touch the ballon, you can change the difficulty here
+                                         #upper the difficulty in function of your score
+        if 3 <= score_actuel < 5 :
+            cloud_speed = 7
+            espace = ballonH *2.8
+        if 5 <= score_actuel < 7 :
+            cloud_speed = 8
+            espace = ballonH *2.7
+        if 7 <= score_actuel < 10 :
+            cloud_speed = 9
+            espace = ballonH *2.5
+
+                                         #define when you touch the cloud with the ballon, you can change the difficulty here
         if x + ballonW > x_cloud +40:
             if y < y_cloud + cloudH -50:
                 if x - ballonW < x_cloud + cloudW -20 :
@@ -112,11 +132,17 @@ def principal():                          #my principal function main()
                 if x + ballonW < x_cloud +cloudW -20 :
                     gameOver()
 
-        if x_cloud < (-1*cloudW) :
+
+        if x_cloud < (-1*cloudW) :              #give a new position for a new cloud
             x_cloud = surfaceW
             y_cloud = randint(-300,20)
 
+
+        if x_cloud < (x - cloudW) < x_cloud + cloud_speed:          #select just one frame to incremente the score one time by cloud
+            score_actuel +=1
+
         pygame.display.update()
+       
 
 
      
