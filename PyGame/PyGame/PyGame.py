@@ -3,6 +3,7 @@ import time
 from random import *
 import sqlite3
 
+#color of the background
 blue = (113,177,227)
 white = (255,255,255)
 
@@ -11,7 +12,6 @@ pygame.init()
 Donnees = "/Users/Guillaume/Documents/PythonGame/PyGame/Donnees.sq3"
 conn = sqlite3.connect(Donnees)
 cur = conn.cursor()
-
 
 """
 #This code it's to create the file to save the Score
@@ -91,6 +91,7 @@ def messageScreen (text):
     principal()
 
 def gameOver(score_actuel):
+    """
     a = list(str(score_actuel))     #create a list with a char
     Donnees = "/Users/Guillaume/Documents/PythonGame/PyGame/Donnees.sq3"
     conn =sqlite3.connect(Donnees)
@@ -102,12 +103,12 @@ def gameOver(score_actuel):
     for i in range(0,len(dataliste)):
         hscore += dataliste[i]
 
-    if (int(hscore[-1])< score_actuel):
-        cur.execute("insert into membres(score) values(?)", a)
+    if (int(hscore[-1]) < score_actuel):
+        cur.execute("insert into membres(score) values (?)", a)
         conn.commit()
         cur.close()
         conn.close()
-
+    """
     messageScreen("Boom")                       #display an object message
 
 
@@ -152,13 +153,13 @@ def principal():                          #my principal function main()
 
         cur.execute("select * from membres")    #take all in the data list and put the result inside the cursor (cur)
         dataliste = list(cur)                       # make a list with the data
-        print(cur)
-        print(dataliste)
+       # print(cur)
+       # print(dataliste)
 
         hscore = []
         for i in range (0,len(dataliste)):
             hscore +=dataliste[i]                    # format the data in list from table
-        print(hscore)
+       # print(hscore)
 
         Hscore(hscore[-1])
 
@@ -193,14 +194,16 @@ def principal():                          #my principal function main()
             x_cloud = surfaceW
             y_cloud = randint(-300,20)
 
-        print(x_cloud)
-        print(cloudW)
-        print( cloud_speed)
-        print(x)
+       # print(x_cloud)
+       # print(cloudW)
+       # print( cloud_speed)
+       # print(x)
 
         if x_cloud - 1 < (x - cloudW) < x_cloud + cloud_speed:          #select just one frame to incremente the score one time by cloud
             score_actuel +=1
 
+        a = list(str(score_actuel)) 
+        print(a)
 
         pygame.display.update()
        
