@@ -59,8 +59,7 @@ def clouds(x_cloud, y_cloud, espace):
 def PlayAgain():
     for event in pygame.event.get ([pygame.KEYDOWN, pygame.KEYUP,pygame.QUIT]): #if detect an input up down or quit with the cross of the windows
         if event.type == pygame.QUIT :
-            pygame.QUIT()
-            quit()
+            pygame.quit()
         elif event.type == pygame.KEYUP :
             continue
         return event.key
@@ -201,9 +200,13 @@ def principal():                          #my principal function main()
           
 principal()
 pygame.quit()
+
     #print(quit)
     #os._exit()
 
+
+#C:\Users\Guillaume\AppData\Local\Programs\Python\Python37-32>
+#C:\Users\Guillaume\Documents\PythonGame\PyGame>pyinstaller "PyGame.py"
 
 #Code from alexandre ghelli to learn Python for RSG
 #https://www.youtube.com/channel/UCSXLZu6tCzXlSARAJ9utgow/videos
