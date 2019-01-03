@@ -1,5 +1,6 @@
 import pygame
 import time
+from random import *
 
 blue = (113,177,227)
 white = (255,255,255)
@@ -71,6 +72,11 @@ def principal():                          #my principal function main()
     y = 200
     y_mouvement = 0
     
+    x_cloud = surfaceW
+    y_cloud = randint(-300,20)                #random value
+    espace = ballonH*3                        #height of the space betwwen the clouds
+    cloud_speed = 6
+
     game_over = False                        #create a variable to now if the game need to stop
     while not game_over :
         for event in pygame.event.get():
@@ -87,6 +93,10 @@ def principal():                          #my principal function main()
 
         surface.fill(blue)
         ballon(x,y,img)
+
+        clouds(x_cloud,y_cloud, espace)
+
+        x_cloud -= cloud_speed
 
         if y >surfaceH -40 or y < -10 :     #when you touch the border of the windows
             gameOver()
